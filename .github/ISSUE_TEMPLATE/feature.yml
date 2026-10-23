@@ -1,0 +1,9 @@
+name: Focused improvement
+description: Suggest a practical improvement within the documented scope
+body:
+  - type: textarea
+    id: task
+    attributes:
+      label: What household task would this improve?
+    validations:
+      required: true

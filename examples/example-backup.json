@@ -1,0 +1,15 @@
+{
+  "format": "storage-box-finder",
+  "version": 1,
+  "records": [
+    {
+      "id": "example-1",
+      "photo": "",
+      "number": "B-014",
+      "name": "Winter things",
+      "location": "Hall cupboard · upper shelf",
+      "contents": "Scarves\nWool hats\nSpare gloves",
+      "notes": "Lightweight box"
+    }
+  ]
+}

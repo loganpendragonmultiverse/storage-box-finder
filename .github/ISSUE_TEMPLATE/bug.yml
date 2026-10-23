@@ -1,0 +1,10 @@
+name: Bug report
+description: Report a reproducible problem using synthetic data
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What happened and how can it be reproduced?
+      description: Include browser/version and expected behavior. Do not upload personal backups or photos.
+    validations:
+      required: true

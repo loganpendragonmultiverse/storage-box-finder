@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta
+      name="description"
+      content="A searchable home inventory with box numbers, locations, photos and labels you can actually read."
+    />
+    <title>Storage Box Finder</title>
+    <link rel="stylesheet" href="src/styles.css" />
+  </head>
+  <body>
+    <a href="#workspace" class="skip">Skip to workspace</a>
+    <header>
+      <div class="eyebrow">Logan Pendragon Multiverse · Local tools</div>
+      <h1>Storage Box Finder</h1>
+      <p>
+        <strong>Find the box. Keep the contents.</strong> A searchable home
+        inventory with box numbers, locations, photos and labels you can
+        actually read.
+      </p>
+      <span class="version">Version 1.0.0 · No account · No uploads</span>
+    </header>
+    <main>
+      <div class="toolbar" aria-label="Library actions">
+        <button id="export">Export backup</button
+        ><label class="file-button"
+          >Import backup<input
+            id="import"
+            type="file"
+            accept=".json,application/json" /></label
+        ><button id="print">Print selected entries</button
+        ><button id="undo" disabled>Undo deletion</button>
+      </div>
+      <p id="status" class="status" role="status" aria-live="polite"></p>
+      <section id="recovery" class="notice" hidden>
+        <h2>Protect your saved data</h2>
+        <p>
+          Normal saving and backup export are blocked because stored data could
+          not be read. Download the original bytes, then import a known good
+          backup. Import requires a separate replacement confirmation.
+        </p>
+        <button id="raw">Download original bytes</button>
+      </section>
+      <section
+        id="import-preview"
+        class="notice"
+        hidden
+        aria-labelledby="import-heading"
+      >
+        <h2 id="import-heading">Review backup replacement</h2>
+        <p id="import-summary"></p>
+        <label class="check-line"
+          ><input type="checkbox" id="replace-confirm" /><span
+            >I reviewed this replacement and want to replace the current
+            library.</span
+          ></label
+        ><button id="apply-import" disabled>Replace library</button
+        ><button id="cancel-import">Cancel import</button>
+      </section>
+      <div class="workspace" id="workspace">
+        <section class="panel" aria-labelledby="editor-title">
+          <h2 id="editor-title">Add box</h2>
+          <p class="help">
+            * Required. Short fields: 300 characters. Notes: 5,000 characters.
+          </p>
+          <form id="editor">
+            <div id="fields"></div>
+            <div class="photo-area">
+              <label for="photo"><span>Reference photo (optional)</span></label
+              ><input
+                type="file"
+                id="photo"
+                accept="image/png,image/jpeg,image/webp"
+              />
+              <p class="help">
+                PNG, JPEG or WebP up to 8 MB. Prepared locally as a smaller
+                JPEG; backups include the photo.
+              </p>
+              <img
+                id="photo-preview"
+                alt="Unsaved reference photo preview"
+                hidden
+              /><button type="button" id="remove-photo" hidden>
+                Remove photo
+              </button>
+            </div>
+            <div class="editor-buttons">
+              <button class="primary" id="save" type="submit">Save box</button
+              ><button type="button" id="cancel-edit">Clear form</button
+              ><button type="button" id="example">Load example</button>
+            </div>
+          </form>
+          <p class="help">
+            Box numbers must be unique. Use a location that will still make
+            sense when you need to find it.
+          </p>
+        </section>
+        <section aria-labelledby="library-title">
+          <div class="section-top">
+            <div>
+              <h2 id="library-title">Your library</h2>
+              <p id="count"></p>
+            </div>
+            <button id="select-all">Select / clear visible</button>
+          </div>
+          <label class="search-label" for="search"
+            ><span>Search names, locations and details</span
+            ><input id="search" type="search" placeholder="Search your entries"
+          /></label>
+          <p class="print-title">
+            Storage Box Finder · Your supplied reference information
+          </p>
+          <div id="cards" class="cards"></div>
+          <div class="empty" id="empty">
+            <h3>Nothing here yet</h3>
+            <p>
+              Add an entry or load the example into the form. If you are
+              searching, try a shorter phrase.
+            </p>
+          </div>
+        </section>
+      </div>
+    </main>
+    <footer>
+      <p>
+        Saved only in this browser on this device. Browser storage can be
+        cleared, blocked or run out of space; private browsing may discard it.
+        Export backups regularly. Maximum 150 entries and 12 MB per library;
+        browser quotas may be lower. Photos use much more space than text. Files
+        and printouts may contain personal information; keep them private.
+      </p>
+      <p>
+        Printing uses the visible, selected entries. Browser print settings
+        control paper size and scale; preview before printing labels. The sheet
+        is not calibrated for pre-cut label stock.
+      </p>
+      <p>
+        MIT licensed ·
+        <a href="https://github.com/loganpendragonmultiverse/storage-box-finder"
+          >Source and support</a
+        >
+      </p>
+    </footer>
+    <script type="application/json" id="product-config">
+      {
+        "slug": "storage-box-finder",
+        "name": "Storage Box Finder",
+        "tag": "Find the box. Keep the contents.",
+        "intro": "A searchable home inventory with box numbers, locations, photos and labels you can actually read.",
+        "item": "box",
+        "fields": [
+          ["number", "Box number", "text", true],
+          ["name", "Box name", "text", true],
+          ["location", "Location", "text", true],
+          ["contents", "Contents, one item per line", "textarea", true],
+          ["notes", "Notes", "textarea", false]
+        ],
+        "example": {
+          "number": "B-014",
+          "name": "Winter things",
+          "location": "Hall cupboard · upper shelf",
+          "contents": "Scarves\nWool hats\nSpare gloves",
+          "notes": "Lightweight box"
+        }
+      }
+    </script>
+    <script type="module" src="src/app.js"></script>
+  </body>
+</html>

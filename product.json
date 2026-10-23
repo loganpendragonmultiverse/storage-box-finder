@@ -1,0 +1,21 @@
+{
+  "slug": "storage-box-finder",
+  "name": "Storage Box Finder",
+  "tag": "Find the box. Keep the contents.",
+  "intro": "A searchable home inventory with box numbers, locations, photos and labels you can actually read.",
+  "item": "box",
+  "fields": [
+    ["number", "Box number", "text", true],
+    ["name", "Box name", "text", true],
+    ["location", "Location", "text", true],
+    ["contents", "Contents, one item per line", "textarea", true],
+    ["notes", "Notes", "textarea", false]
+  ],
+  "example": {
+    "number": "B-014",
+    "name": "Winter things",
+    "location": "Hall cupboard · upper shelf",
+    "contents": "Scarves\nWool hats\nSpare gloves",
+    "notes": "Lightweight box"
+  }
+}
