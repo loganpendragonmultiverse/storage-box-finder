@@ -5,7 +5,7 @@
   "type": "module",
   "license": "MIT",
   "scripts": {
-    "test": "node --test test/core.test.js",
+    "test": "node --test test/core.test.js scripts/static-test-server.test.mjs",
     "check": "node --check src/core.js && node --check src/app.js && node --check scripts/build.mjs && prettier --check .",
     "build": "node scripts/build.mjs",
     "test:browser": "node browser-acceptance.mjs",

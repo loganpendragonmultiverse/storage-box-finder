@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
-import http from "node:http";
+import { createStaticTestServer } from "./scripts/static-test-server.mjs";
 import { execFileSync } from "node:child_process";
 import assert from "node:assert/strict";
 const root = path.dirname(fileURLToPath(import.meta.url));
@@ -25,29 +25,18 @@ execFileSync(process.platform === "win32" ? "python" : "python3", [
   path.join(root, "dist", `${pkg.name}-${pkg.version}.zip`),
   path.join(output, "extracted"),
 ]);
-const server = http.createServer(async (req, res) => {
-  try {
-    const relative =
-      decodeURIComponent(new URL(req.url, "http://localhost").pathname).replace(
-        /^\//,
-        "",
-      ) || "index.html";
-    const file = path.resolve(root, relative);
-    if (!file.startsWith(root + path.sep)) throw Error("outside");
-    res.setHeader(
-      "Content-Type",
-      file.endsWith(".js")
-        ? "text/javascript"
-        : file.endsWith(".css")
-          ? "text/css"
-          : "text/html",
-    );
-    res.end(await fs.readFile(file));
-  } catch {
-    res.statusCode = 404;
-    res.end("Not found");
-  }
-});
+const server = await createStaticTestServer([
+  {
+    root,
+    routes: [
+      ["/", "index.html"],
+      ["/index.html", "index.html"],
+      ["/src/core.js", "src/core.js"],
+      ["/src/app.js", "src/app.js"],
+      ["/src/styles.css", "src/styles.css"],
+    ],
+  },
+]);
 await new Promise((r) => server.listen(0, "127.0.0.1", r));
 const base = `http://127.0.0.1:${server.address().port}`;
 const results = [];
